@@ -1,0 +1,10 @@
+import { Context, Next } from 'koa';
+import { JoiService, ResponseService } from '../services';
+import { LanguageEnum } from '@ubaytools/core';
+
+export async function ModernMiddleware(context: Context, next: Next): Promise<void> {
+  context.send = new ResponseService(context);
+  context.joi = new JoiService();
+  context.lang = context.headers['accept-language'] || LanguageEnum.UZ;
+  await next();
+}

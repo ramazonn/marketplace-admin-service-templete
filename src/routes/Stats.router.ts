@@ -1,0 +1,34 @@
+import * as KoaRouter from '@koa/router';
+import { StatsControllers } from '../controllers';
+import { CheckClientSessionMiddleware } from '../middlewares';
+import { PermissionGuard } from '../middlewares/PermissionGuard.middleware';
+import { PERMISSIONS } from '@ubaytools/core';
+
+export const StatsRouter = new KoaRouter().prefix('/stats');
+
+StatsRouter.get('/main', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_MAIN, PERMISSIONS.STATS_ALL), StatsControllers.GetMainStatsController);
+StatsRouter.get('/top-sellers', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_TOP_SELLERS, PERMISSIONS.STATS_ALL), StatsControllers.GetTopSellersController);
+StatsRouter.get('/top-products', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_TOP_PRODUCTS, PERMISSIONS.STATS_ALL), StatsControllers.GetTopProductsController);
+StatsRouter.get('/top-customers', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_TOP_CUSTOMERS, PERMISSIONS.STATS_ALL), StatsControllers.GetTopCustomersController);
+StatsRouter.get('/top-cashback-earned-customers', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_TOP_CASHBACK_EARNED_CUSTOMERS, PERMISSIONS.STATS_ALL), StatsControllers.GetTopCashbackEarnedCustomersController);
+StatsRouter.get('/products-by-status', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_PRODUCTS_BY_STATUS, PERMISSIONS.STATS_ALL), StatsControllers.GetProductsCountByStatusController);
+StatsRouter.get('/orders-by-status', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_ORDERS_BY_STATUS, PERMISSIONS.STATS_ALL), StatsControllers.GetOrdersCountByStatusController);
+StatsRouter.get('/delivered-orders', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_DELIVERED_ORDERS, PERMISSIONS.STATS_ALL), StatsControllers.GetDeliveredOrdersController);
+StatsRouter.get('/created-orders', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_CREATED_ORDERS, PERMISSIONS.STATS_ALL), StatsControllers.GetCreatedOrdersController);
+StatsRouter.get('/managers-performance', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_MANAGERS_PERFORMANCE, PERMISSIONS.STATS_ALL), StatsControllers.GetManagersPerformanceController);
+StatsRouter.get('/registered-users', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_REGISTERED_USERS, PERMISSIONS.STATS_ALL), StatsControllers.GetRegisteredUsersController);
+StatsRouter.get('/active-users', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_ACTIVE_USERS, PERMISSIONS.STATS_ALL), StatsControllers.GetActiveUsersController);
+StatsRouter.post('/update-wrong-calculated-cashback', StatsControllers.UpdateWrongCalculatedCashbackController);
+StatsRouter.post('/top-products/download-excel', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_EXPORT_TOP_PRODUCTS_EXCEL, PERMISSIONS.STATS_ALL), StatsControllers.ExportTopProductsExcelController);
+StatsRouter.post('/top-customers/download-excel', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_EXPORT_TOP_CUSTOMERS_EXCEL, PERMISSIONS.STATS_ALL),  StatsControllers.ExportTopCustomersExcelController);
+StatsRouter.post('/top-cashback-earned-customers/download-excel', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_EXPORT_TOP_CASHBACK_CUSTOMERS_EXCEL, PERMISSIONS.STATS_ALL),  StatsControllers.ExportTopCashbackCustomersExcelController);
+StatsRouter.get('/cashback', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_CASHBACK, PERMISSIONS.STATS_ALL),  StatsControllers.GetCashbackStatsController);
+StatsRouter.get('/delivery-time', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_DELIVERY_TIME, PERMISSIONS.STATS_ALL),  StatsControllers.GetDeliveryTimeStatsController);
+StatsRouter.get('/payment-types', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_PAYMENT_TYPES, PERMISSIONS.STATS_ALL),  StatsControllers.GetPaymentTypeStatsController);
+StatsRouter.get('/order-status-average-durations', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_ORDER_STATUS_AVERAGE_DURATIONS, PERMISSIONS.STATS_ALL), StatsControllers.GetOrderStatusAverageDurationsController);
+StatsRouter.get('/monthly-store-brand-sales', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_MONTHLY_STORE_BRAND_SALES, PERMISSIONS.STATS_ALL), StatsControllers.GetMonthlySalesStatsController);
+StatsRouter.post('/order-abandonment', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_ORDER_ABANDONMENT, PERMISSIONS.STATS_ALL), StatsControllers.GetOrderAbandontedStatsController);
+StatsRouter.get('/cancelled-orders', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_CANCELLED_ORDERS, PERMISSIONS.STATS_ALL), StatsControllers.GetCancelledOrdersController);
+StatsRouter.post('/cancelled-orders/download-excel', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_EXPORT_CANCELLED_ORDERS_EXCEL, PERMISSIONS.STATS_ALL), StatsControllers.ExportCancelledOrdersExcelController);
+StatsRouter.post('/order-abandonment/download-excel', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_EXPORT_ORDER_ABANDONMENT_EXCEL, PERMISSIONS.STATS_ALL), StatsControllers.ExportOrderAbandonmentExcelController);
+StatsRouter.get('/orders-by-payment-type', CheckClientSessionMiddleware(), PermissionGuard(PERMISSIONS.STATS_ORDERS_BY_PAYMENT_TYPE, PERMISSIONS.STATS_ALL), StatsControllers.GetOrdersByPaymentTypeController);

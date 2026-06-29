@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Viewer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    #videoContainer {
+      margin-top: 20px;
+      max-width: 800px;
+      width: 100%;
+    }
+    #videoPlayer {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h1>Video Viewer</h1>
+  <div id="videoContainer">
+    <video id="videoPlayer" controls autoplay muted playsinline>
+      <source src="https://pub-1d584919752d4ebebd3bc44f6fff37c7.r2.dev/videos/1746171902093" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  <div id="errorMessage"></div>
+
+  <script>
+    const video = document.getElementById('videoPlayer');
+    const errorMessage = document.getElementById('errorMessage');
+
+    video.onerror = function() {
+      errorMessage.textContent = "Error: " + video.error.message;
+    };
+
+    video.onloadedmetadata = function() {
+      console.log("Video metadata loaded");
+    };
+
+    video.oncanplay = function() {
+      console.log("Video can play");
+    };
+  </script>
+</body>
+</html>
